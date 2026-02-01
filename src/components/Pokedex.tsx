@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, LogOut, ChevronRight, ChevronLeft, Filter, Settings } from 'lucide-react';
+import { Search, LogOut, ChevronRight, ChevronLeft, Filter, Settings, Lightbulb } from 'lucide-react';
 import { PokemonCard } from './PokemonCard';
 import { PokemonDetail } from './PokemonDetail';
 import { pokemonService, Pokemon } from '../services/pokemonService';
@@ -8,9 +8,10 @@ import { pokemonService, Pokemon } from '../services/pokemonService';
 interface PokedexProps {
   onLogout: () => void;
   onOpenCMS: () => void;
+  onOpenRecommendations: () => void;
 }
 
-export const Pokedex: React.FC<PokedexProps> = ({ onLogout, onOpenCMS }) => {
+export const Pokedex: React.FC<PokedexProps> = ({ onLogout, onOpenCMS, onOpenRecommendations }) => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -130,6 +131,13 @@ export const Pokedex: React.FC<PokedexProps> = ({ onLogout, onOpenCMS }) => {
                     <span>Captured:</span>
                     <span className="bg-white text-red-600 px-2 rounded-full">{captured.size}</span>
                  </div>
+                 <button 
+                  onClick={onOpenRecommendations}
+                  className="p-2 text-white hover:bg-red-700 rounded-full transition-colors"
+                  title="Recommendations"
+                >
+                  <Lightbulb className="w-6 h-6" />
+                </button>
                  <button 
                   onClick={onOpenCMS}
                   className="p-2 text-white hover:bg-red-700 rounded-full transition-colors"

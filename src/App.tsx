@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Login } from './components/Login';
 import { Pokedex } from './components/Pokedex';
 import { PokemonCMS } from './components/PokemonCMS';
+import { Recommendations } from './components/Recommendations';
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [view, setView] = useState<'pokedex' | 'cms'>('pokedex');
+  const [view, setView] = useState<'pokedex' | 'cms' | 'recommendations'>('pokedex');
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -13,7 +14,7 @@ export default function App() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    setView('pokedex'); // Reset view on logout
+    setView('pokedex');
   };
 
   return (
@@ -21,10 +22,13 @@ export default function App() {
       {isAuthenticated ? (
         view === 'cms' ? (
           <PokemonCMS onBack={() => setView('pokedex')} />
+        ) : view === 'recommendations' ? (
+          <Recommendations onBack={() => setView('pokedex')} />
         ) : (
           <Pokedex 
             onLogout={handleLogout} 
             onOpenCMS={() => setView('cms')}
+            onOpenRecommendations={() => setView('recommendations')}
           />
         )
       ) : (
